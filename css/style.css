@@ -1,0 +1,250 @@
+:root {
+    --land-color:#36B1BF;
+    --sky-color: #E9F1DF;
+    --rabbits-color: #f8f9fc;
+    --ear-inner-color: pink;
+    --grass-color: #F5A503;
+    --container-shadow: 12px 12px 24px 0px rgba(0, 0, 0, 0.25);
+    --land-shadow: inset -2px 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    }
+
+    html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    }
+
+    img {
+    width: 100%;
+    }
+
+    input[type="checkbox"] {
+    position: absolute;
+    visibility: hidden;
+    }
+
+    input[type="checkbox"]:checked {
+    counter-increment: score;
+    }
+
+    .container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    height: 600px;
+    width: 300px;
+    background-color: var(--sky-color);
+    border-radius: 40px;
+    border: 6px solid black;
+    box-shadow: var(--container-shadow);
+    overflow: hidden;
+    counter-reset: score;
+    }
+
+    .title {
+    grid-row: 1 / 2;
+    grid-column: 1 / 9;
+    width: 80%;
+    justify-self: center;
+    align-self: end;
+    }
+
+    .score {
+    grid-row: 2 / 3;
+    grid-column: 1 / 9;
+    text-align: center;
+    }
+
+    .score::after {
+    content: " " counter(score);
+    }
+
+    .land {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--land-color);
+    box-shadow: var(--land-shadow);
+    border-radius: 20px;
+    overflow: hidden;
+    }
+
+    .land::before {
+    content: "";
+    width: 100%;
+    height: 30%;
+    max-height: 50px;
+    background-color: var(--grass-color);
+    box-shadow: var(--land-shadow);
+    }
+
+    .rabbit {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    width: 82%;
+    height: 85%;
+    margin: 0 auto;
+    cursor: pointer;
+    animation: jump infinite alternate;
+    }
+
+    .layer-1 > .rabbit {
+    animation-duration: 0.95s;
+    }
+
+    .layer-2 > .rabbit {
+    animation-duration: 0.57s;
+    }
+
+    .layer-4 > .rabbit {
+    animation-duration: 0.79s;
+    }
+
+    .layer-6 > .rabbit {
+    animation-delay: 0.1s;
+    animation-duration: 0.7s;
+    }
+    .layer-8 > .rabbit {
+    animation-duration: 0.45s;
+    }
+
+    input[type="checkbox"]:checked + .rabbit {
+    animation-name: die;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    }
+
+    .ears {
+    grid-row: 1 / 3;
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: space-around;
+    }
+
+    .ear-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38%;
+    background-color: var(--rabbits-color);
+    border-radius: 90%;
+    }
+
+    .ear-inner {
+    background-color: var(--ear-inner-color);
+    width: 50%;
+    height: 80%;
+    border-radius: 90%;
+    }
+
+    .head {
+    grid-row: 2 / 5;
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    height: 70%;
+    margin-top: 5px;
+    background-color: var(--rabbits-color);
+    border-radius: 50%;
+    }
+
+    .eye {
+    width: 6px;
+    height: 6px;
+    margin-top: 25px;
+    background-color: black;
+    border-radius: 50%;
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    }
+
+    .layer-1 {
+    grid-row: 3 / 5;
+    grid-column: 3 / 5;
+    }
+
+    .layer-2 {
+    grid-row: 3 / 5;
+    grid-column: 5 / 7;
+    }
+
+    .layer-3 {
+    grid-row: 4 / 9;
+    grid-column: 2 / 8;
+    }
+
+    .layer-4 {
+    grid-row: 5 / 7;
+    grid-column: 2 / 4;
+    }
+
+    .layer-5 {
+    grid-row: 6 / 9;
+    grid-column: 1 / 6;
+    }
+
+    .layer-6 {
+    grid-row: 6 / 8;
+    grid-column: 6 / 8;
+    }
+
+    .layer-7 {
+    grid-row: 7 / 9;
+    grid-column: 3 / 9;
+    }
+    .layer-8 {
+    grid-row: 6 / 8;
+    grid-column: 4 / 6;
+    }
+
+
+    @keyframes blink {
+    0% {
+        transform: scaleY(1);
+    }
+    5% {
+        transform: scaleY(0.2);
+    }
+    15% {
+        transform: scaleY(1);
+    }
+    }
+
+    @keyframes jump {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(80px);
+    }
+    }
+
+    @keyframes die {
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+    25% {
+        transform: translateX(20px) translateY(10px);
+    }
+    50% {
+        transform: translateX(-20px) translateY(20px);
+    }
+    75% {
+        transform: translateX(20px) translateY(40px);
+    }
+    100% {
+        transform: translateX(0px) translateY(80px);
+    }
+    }
